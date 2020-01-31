@@ -48,6 +48,11 @@ view: users {
     sql: ${TABLE}.first_name ;;
   }
 
+  dimension: gender_test{
+    type: yesno
+    sql: ${TABLE}.gender = 'm' ;;
+    description: "Yes if Male"
+  }
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
