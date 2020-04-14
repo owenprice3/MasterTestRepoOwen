@@ -57,15 +57,32 @@ view: users {
     type: string
     sql: ${TABLE}.gender ;;
   }
+  dimension: gender_conditional_link {
+    type: string
+    sql: ${TABLE}.gender ;;
+    html: {% if users.gender._value == "m" %}
+<a href="https://www.google.com/search?q={{ value }}">{{ value }}</a>
+{% else %}
+<a href="https://www.google.com/search?q={{ value }}">{{ value }}</a>
+{% endif %} ;;
+  }
 
   dimension: last_name {
     type: string
     sql: ${TABLE}.last_name ;;
   }
 
-  dimension: state {
+  dimension: state_news_button {
     type: string
     sql: ${TABLE}.state ;;
+    html: <a href="http://www.google.com/search?q=coronavirus%20{{ value }}"><button>State News</button></a> ;;
+  }
+
+  dimension: state_with_covid_search {
+    type: string
+    sql: ${TABLE}.state ;;
+    drill_fields: [zip]
+    html: <a href="http://www.google.com/search?q=coronavirus%20{{ value }}" target="_new">{{value}}<button>State News</button></a> <a href="#drillmenu" target="_self">⚠️</a> ;;
   }
 
   dimension: zip {

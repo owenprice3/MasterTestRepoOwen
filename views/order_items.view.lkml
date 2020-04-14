@@ -38,9 +38,21 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
+  measure: distinct_count_test {
+    type: count_distinct
+    sql: ${TABLE}.id || ~ || ${order_id} || ~ || ${inventory_item_id} ;;
+  }
+
 
   measure: count {
     type: count
     drill_fields: [id, inventory_items.id, orders.id]
   }
+  dimension_group: returned {
+    type: duration
+    intervals: [day, week, month]
+    sql_start: ${TABLE}.returned_at = cast("09:00:00" as timestamp);;
+    sql_end: cast(${TABLE}.returned_at = "17:00:00" as timestamp) ;;
+  }
+
 }

@@ -12,6 +12,11 @@ view: products {
     type: string
     sql: ${TABLE}.brand ;;
   }
+  dimension: brand_logo {
+    type: string
+    sql: ${TABLE}.brand ;;
+    html: <img src="smiley.gif" /><br> ;;
+  }
 
   dimension: category {
     type: string

@@ -27,6 +27,9 @@ explore: inventory_items {
 }
 
 explore: order_items {
+  #always_filter: {
+   # filters: [id: "15", users.first_name: "BCBS_NC"]
+  #}
   join: inventory_items {
     type: left_outer
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
