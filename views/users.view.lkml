@@ -57,6 +57,10 @@ view: users {
     type: string
     sql: ${TABLE}.gender ;;
   }
+  dimension: gender_html {
+    sql: IF(${gender} = 'm', "https://upload.wikimedia.org/wikipedia/commons/f/f9/Phoenicopterus_ruber_in_S%C3%A3o_Paulo_Zoo.jpg", "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Mud_Cow_Racing_-_Pacu_Jawi_-_West_Sumatra%2C_Indonesia.jpg/1200px-Mud_Cow_Racing_-_Pacu_Jawi_-_West_Sumatra%2C_Indonesia.jpg")  ;;
+    html: <img src="{{ rendered_value }}" width="100" height="100"/> ;;
+  }
   dimension: gender_conditional_link {
     type: string
     sql: ${TABLE}.gender ;;
