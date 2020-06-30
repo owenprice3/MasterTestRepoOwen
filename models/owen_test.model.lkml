@@ -4,7 +4,7 @@ connection: "thelook"
 include: "/views/**/*.view"
 
 datagroup: owen_test_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
+   sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
 
@@ -56,6 +56,17 @@ explore: order_items {
 }
 
 explore: orders {
+  aggregate_table: test_liquid_input {
+    query: {
+      dimensions: [orders.id, orders.date]
+      measures: [count]
+
+    }
+
+    materialization: {
+      datagroup_trigger: owen_test_default_datagroup
+    }
+  }
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
@@ -66,6 +77,7 @@ explore: orders {
     sql_on: ${order_items.order_id} = ${orders.id} ;;
     relationship: many_to_one
   }
+
 }
 
 explore: products {}

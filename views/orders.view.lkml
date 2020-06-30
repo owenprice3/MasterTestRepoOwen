@@ -22,7 +22,7 @@ view: orders {
     sql: ${TABLE}.created_at ;;
   }
   parameter: date_granularity {
-    #group_label: "Definitely Not Date Granularity"
+    group_label: "Definitely Not Date Granularity"
     type: string
     allowed_value: { value: "Day" }
     allowed_value: { value: "Month" }
@@ -49,6 +49,35 @@ view: orders {
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
+  }
+  parameter: status_selector {
+    default_value: "complete"
+    allowed_value: {
+      value: "complete"
+    }
+    allowed_value: {
+      value: "pending"
+    }
+    allowed_value: {
+      value: "cancelled"
+    }
+  }
+  dimension: broken_liquid_reference {
+    type: string
+    sql: CASE
+         WHEN {% parameter status_selector %} = 'complete' THEN ${order_items.id}
+         ELSE ${users.gender}
+         END;;
+    link: {
+      label: "Broken {{ value }}"
+      url: "{% assign sbv = {{_filters['orders.status_selector']}} %}
+            {% if sbv == 'complete' %}
+            https://master.dev.looker.com/dashboards/3552?Brand={{_filters['products.brand']}}
+            {% else %}
+            https://docs.looker.com
+            {% endif %}
+            "
+    }
   }
 
   dimension: user_id {
