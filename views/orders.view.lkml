@@ -62,7 +62,7 @@ view: orders {
       value: "cancelled"
     }
   }
-  dimension: broken_liquid_reference {
+  dimension: broken_liquid_reference_CHAANGES {
     type: string
     sql: CASE
          WHEN {% parameter status_selector %} = 'complete' THEN ${order_items.id}
@@ -72,9 +72,9 @@ view: orders {
       label: "Broken {{ value }}"
       url: "{% assign sbv = {{_filters['orders.status_selector']}} %}
             {% if sbv == 'complete' %}
-            https://master.dev.looker.com/dashboards/3552?Brand={{_filters['products.brand']}}
+            https://master.dev.looker.com/dashboards/3552?ID={{_filters['order_items.id']}}
             {% else %}
-            https://docs.looker.com
+            https://master.dev.looker.com/dashboards/3552?Gender={{_filters['users.gender']}}
             {% endif %}
             "
     }
