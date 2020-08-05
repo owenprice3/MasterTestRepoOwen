@@ -1,5 +1,5 @@
 view: orders {
-  sql_table_name: demo_db.orders ;;
+  sql_table_name: {% parameter status_selector %}.orders ;;
   drill_fields: [id]
 
   dimension: id {
@@ -24,6 +24,7 @@ view: orders {
   parameter: date_granularity {
     group_label: "Definitely Not Date Granularity"
     type: string
+    default_value: "Day"
     allowed_value: { value: "Day" }
     allowed_value: { value: "Month" }
     allowed_value: { value: "Quarter" }
@@ -49,8 +50,10 @@ view: orders {
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
+    suggest_persist_for: "0 seconds"
   }
   parameter: status_selector {
+    type: unquoted
     default_value: "complete"
     allowed_value: {
       value: "complete"
@@ -60,6 +63,10 @@ view: orders {
     }
     allowed_value: {
       value: "cancelled"
+    }
+    allowed_value: {
+      label: "Actual DB"
+      value: "demo_db"
     }
   }
   dimension: broken_liquid_reference_CHAANGES {
