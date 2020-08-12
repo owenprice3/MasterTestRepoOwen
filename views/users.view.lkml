@@ -21,7 +21,7 @@ view: users {
   dimension: country {
     type: string
     map_layer_name: countries
-    sql: ${TABLE}.country ;;
+    sql: case when ${TABLE}.country = 'USA' then 'United States of America' end;;
   }
 
   dimension_group: created {
