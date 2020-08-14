@@ -93,6 +93,11 @@ view: orders {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: over_16_digits_number {
+    type: number
+    sql: 1234567891234567 * ${TABLE}.user_id ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, users.first_name, users.last_name, users.id, order_items.count]
