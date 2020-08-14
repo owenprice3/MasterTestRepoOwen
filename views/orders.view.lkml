@@ -4,7 +4,7 @@ view: orders {
   drill_fields: [id]
 
   dimension: id {
-    primary_key: yes
+    #primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
   }
@@ -95,8 +95,10 @@ view: orders {
   }
 
   dimension: over_16_digits_number {
+    primary_key: yes
     type: number
-    sql: 1234567891234567 * ${TABLE}.user_id ;;
+    sql: 123456789123456 * ${TABLE}.user_id ;;
+    #value_format: "0"
   }
 
   measure: count {
