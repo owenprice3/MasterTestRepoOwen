@@ -1,5 +1,6 @@
 view: orders {
-  sql_table_name: {% parameter status_selector %}.orders ;;
+  #sql_table_name: {% parameter status_selector %}.orders ;;
+  sql_table_name: demo_db.orders ;;
   drill_fields: [id]
 
   dimension: id {
