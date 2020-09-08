@@ -40,6 +40,7 @@ view: products {
   dimension: department {
     type: string
     sql: ${TABLE}.department ;;
+    html: <p style="font-size: 150%">{{ rendered_value }}</p> ;;
   }
 
   dimension: item_name {

@@ -28,10 +28,17 @@ view: order_items {
       date,
       week,
       month,
+      day_of_month,
+      month_num,
       quarter,
       year
     ]
     sql: ${TABLE}.returned_at ;;
+  }
+  dimension: date_formatted {
+    #sql: concat(${returned_date}, " thru ", ${returned_date}) ;;
+    #html: {{ rendered_value  | date: "%Y/%m/%d"}} ;;
+    sql: concat(concat(${returned_year}, "/", ${returned_month_num}, "/", ${returned_day_of_month}), " thru ", concat(${orders.created_year}, "/", ${orders.created_month_num}, "/", ${orders.created_day_of_month}));;
   }
 
   dimension: sale_price {
@@ -40,7 +47,8 @@ view: order_items {
   }
   measure: distinct_count_test {
     type: count_distinct
-    sql: ${TABLE}.id || ~ || ${order_id} || ~ || ${inventory_item_id} ;;
+    #sql: ${TABLE}.id || ~ || ${order_id} || ~ || ${inventory_item_id} ;;
+    sql: ${id} ;;
   }
 
 

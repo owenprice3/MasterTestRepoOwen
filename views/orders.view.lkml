@@ -15,12 +15,14 @@ view: orders {
       raw,
       time,
       date,
+      month_num,
+      day_of_month,
       week,
       month,
       quarter,
       year
     ]
-    sql: ${TABLE}.created_at ;;
+    sql: DATE_FORMAT(${TABLE}.created_at, "%r") ;;
   }
   parameter: date_granularity {
     group_label: "Definitely Not Date Granularity"
@@ -85,6 +87,14 @@ view: orders {
             https://master.dev.looker.com/dashboards/3552?Gender={{_filters['users.gender']}}
             {% endif %}
             "
+    }
+  }
+  dimension: link_user_id {
+    type: string
+    sql: ${TABLE}.user_id ;;
+    link: {
+      label: "Link Filters"
+      url: "https://master.dev.looker.com/explore/owen_test/orders?fields=orders.count&f[orders.id]={{ row['orders.id'] | url_encode }}&f[users.gender_test]={{ users.gender_test._value }}&sorts=orders.count+desc&limit=20"
     }
   }
 
