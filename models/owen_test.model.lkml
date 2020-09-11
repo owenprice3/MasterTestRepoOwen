@@ -11,6 +11,7 @@ datagroup: owen_test_default_datagroup {
 persist_with: owen_test_default_datagroup
 
 explore: events {
+  description: "I'm just writing a good amount of text here to see if I can repro an issue with explore descriptions"
   join: users {
     type: left_outer
     sql_on: ${events.user_id} = ${users.id} ;;
@@ -80,7 +81,9 @@ explore: orders {
 
 }
 
-explore: products {}
+explore: products {
+  description: "This is a really different description test since I want to see if this gets cached weirdly or not"
+}
 
 explore: schema_migrations {}
 
