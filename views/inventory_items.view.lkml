@@ -26,6 +26,21 @@ view: inventory_items {
     ]
     sql: ${TABLE}.created_at ;;
   }
+  measure: max_created_date {
+    type: date
+    sql: ${created_raw} ;;
+    convert_tz: no
+  }
+
+  measure: most_recent_date {
+    type: yesno
+    sql: max(${created_date}) ;;
+  }
+
+  measure: sum_cost {
+    type: sum
+    sql: ${cost} ;;
+  }
 
   dimension: product_id {
     type: number
